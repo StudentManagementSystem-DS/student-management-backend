@@ -1,37 +1,65 @@
 package com.dsvetiev.studentmanagement.service;
 
+import com.dsvetiev.studentmanagement.exception.StudentAlreadyExistsException;
+import com.dsvetiev.studentmanagement.exception.StudentNotFoundException;
 import com.dsvetiev.studentmanagement.model.Student;
+import com.dsvetiev.studentmanagement.repository.StudentRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 
 public class StudentService implements IStudentService {
+
+    private final StudentRepository studentRepository;
 
 
     @Override
     public Student addStudent(Student student) {
-        return null;
+        if(studentAlreadyExists(student.getEmail())){
+            throw new StudentAlreadyExistsException(student.getEmail() + " already exists!");
+        }
+        return studentRepository.save(student);
     }
+
 
     @Override
     public List<Student> getStudents() {
-        return List.of();
+        return studentRepository.findAll();
     }
 
     @Override
     public Student updateStudents(Student student, Long id) {
-        return null;
+        return studentRepository.findById(id).map(st -> {
+
+            st.setFirstName(student.getFirstName());
+            st.setLastName(student.getLastName());
+            st.setEmail(student.getEmail());
+            st.setDepartment(student.getDepartment());
+
+            return studentRepository.save(st);
+        } ).orElseThrow(() -> new StudentNotFoundException("This student could not be found!"));
     }
 
     @Override
     public Student getStudentId(Long id) {
-        return null;
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException("Student with this id could not be found!"));
     }
 
     @Override
     public void deleteStudent(Long id) {
 
+        if (!studentRepository.existsById(id)){
+            throw new StudentNotFoundException("Student not found!");
+        }
+    }
+    private boolean studentAlreadyExists(String email) {
+
+        return studentRepository.findByEmail(email).isPresent();
     }
 }
