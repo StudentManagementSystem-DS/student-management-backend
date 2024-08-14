@@ -46,7 +46,7 @@ public class StudentService implements IStudentService {
     }
 
     @Override
-    public Student getStudentId(Long id) {
+    public Student getStudentById(Long id) {
         return studentRepository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException("Student with this id could not be found!"));
     }
