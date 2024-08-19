@@ -21,8 +21,8 @@ The Student Management project is a Spring Boot application that allows users to
 - **GET /students**: View all students.
 - **GET /students/student/{id}**: View a single student by ID.
 - **POST /students**: Add a new student.
-- **PUT /students/update{id}**: Edit an existing student.
-- **DELETE /students/delete{id}**: Delete a student by ID.
+- **PUT /students/update/{id}**: Edit an existing student.
+- **DELETE /students/delete/{id}**: Delete a student by ID.
 
 ## Technologies Used
 - **Spring Boot**: Framework for building Java-based applications.
@@ -75,10 +75,10 @@ To install and run the Student Management Backend project locally, follow these 
 ## Usage
 Once the application is up and running, you can perform the following actions using Postman or any other API testing tool:
 
-- **Add Students**: Send a POST request to `http://localhost:8080/students` with the student details in the request body.
-- **View Students**: Send a GET request to `http://localhost:8080/students` to view the list of students.
-- **View a Single Student**: Send a GET request to `http://localhost:8080/students/{id}` to view a single student by ID.
-- **Edit Students**: Send a PUT request to `http://localhost:8080/students/{id}` with the updated student details in the request body.
-- **Delete Students**: Send a DELETE request to `http://localhost:8080/students/{id}` to remove a student.
+- **Add Students**: Send a POST request to `http://localhost:9192/students` with the student details in the request body.
+- **View Students**: Send a GET request to `http://localhost:9192/students` to view the list of students.
+- **View a Single Student**: Send a GET request to `http://localhost:9192/students/student/{id}` to view a single student by ID.
+- **Edit Students**: Send a PUT request to `http://localhost:9192/students/update/{id}` with the updated student details in the request body.
+- **Delete Students**: Send a DELETE request to `http://localhost:9192/students/delete/{id}` to remove a student.
 - **Search Students**: Use the search functionality to find students by name or other criteria.
 
